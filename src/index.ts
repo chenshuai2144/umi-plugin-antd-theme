@@ -31,17 +31,21 @@ export default function(
 
   // 编译完成之后
   api.onBuildSuccessAsync(() => {
+    api.log.pending('build theme');
     buildCss(
       cwd,
       options.theme.map(theme => ({
         ...theme,
         fileName: join(outputPath, 'theme', theme.fileName),
       })),
-    );
+    ).then(() => {
+      api.log.success('build theme success');
+    });
   });
 
   // dev 之后
   api.onDevCompileDone(() => {
+    api.log.pending('build theme');
     // 建立相关的临时文件夹
     if (existsSync(themeTemp)) {
       rimraf.sync(themeTemp);
@@ -59,6 +63,8 @@ export default function(
         ...theme,
         fileName: join(themeTemp, 'theme', theme.fileName),
       })),
-    );
+    ).then(() => {
+      api.log.success('build theme success');
+    });
   });
 }
