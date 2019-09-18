@@ -24,6 +24,7 @@ export default {
             },
           },
         ],
+        min: false, //default true
       },
     ],
   ],
