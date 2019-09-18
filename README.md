@@ -1,6 +1,6 @@
-# umi-plugin-ant-theme
+# umi-plugin-antd-theme
 
-[![NPM version](https://img.shields.io/npm/v/umi-plugin-ant-theme.svg?style=flat)](https://npmjs.org/package/umi-plugin-ant-theme) [![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-ant-theme.svg?style=flat)](https://npmjs.org/package/umi-plugin-ant-theme)
+[![NPM version](https://img.shields.io/npm/v/umi-plugin-antd-theme.svg?style=flat)](https://npmjs.org/package/umi-plugin-antd-theme) [![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-antd-theme.svg?style=flat)](https://npmjs.org/package/umi-plugin-antd-theme)
 
 ## Usage
 
@@ -10,7 +10,7 @@ Configure in `.umirc.js`,
 export default {
   plugins: [
     [
-      'umi-plugin-ant-theme',
+      'umi-plugin-antd-theme',
       {
         theme: [
           {

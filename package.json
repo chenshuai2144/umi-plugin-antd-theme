@@ -1,12 +1,12 @@
 {
-  "name": "umi-plugin-ant-theme",
+  "name": "umi-plugin-antd-theme",
   "version": "0.0.1",
   "description": "",
   "authors": {
     "name": "chenshuai2144",
     "email": "qixian.cs@outlook.com"
   },
-  "repository": "umi-pligin-ant-theme",
+  "repository": "https://github.com/chenshuai2144/umi-plugin-ant-theme.git",
   "peerDependencies": {
     "umi": "2.x || ^2.9.0-0"
   },
