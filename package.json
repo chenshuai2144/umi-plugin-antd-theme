@@ -1,0 +1,37 @@
+{
+  "name": "umi-plugin-ant-theme",
+  "version": "0.0.1",
+  "description": "",
+  "authors": {
+    "name": "chenshuai2144",
+    "email": "qixian.cs@outlook.com"
+  },
+  "repository": "umi-pligin-ant-theme",
+  "peerDependencies": {
+    "umi": "2.x || ^2.9.0-0"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "CURRENT_PROJECT=example umi ui",
+    "build": "father-build",
+    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
+  },
+  "devDependencies": {
+    "father-build": "^1.8.0",
+    "np": "^5.0.3",
+    "umi": "^2.9.0",
+    "umi-types": "^0.4.0-beta.4"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "ui"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "antd-pro-merge-less": "^2.0.3",
+    "rimraf": "^3.0.0",
+    "serve-static": "^1.14.1"
+  }
+}
