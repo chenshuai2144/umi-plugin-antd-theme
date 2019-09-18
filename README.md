@@ -30,10 +30,6 @@ export default {
 };
 ```
 
-## Options
-
-TODO
-
 ## LICENSE
 
 MIT
