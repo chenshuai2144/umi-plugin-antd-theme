@@ -61,9 +61,9 @@ export default function(
       rimraf.sync(api.winPath(join(themeTemp, 'theme')));
     }
 
-    mkdirSync(themeTemp);
+    mkdirSync(themeTemp, { mode: 777 });
 
-    mkdirSync(api.winPath(join(themeTemp, 'theme')));
+    mkdirSync(api.winPath(join(themeTemp, 'theme')), { mode: 777 });
 
     buildCss(
       cwd,
