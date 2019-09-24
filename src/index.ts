@@ -57,12 +57,13 @@ export default function(
     if (existsSync(themeTemp)) {
       rimraf.sync(themeTemp);
     }
-    if (existsSync(join(themeTemp, 'theme'))) {
-      rimraf.sync(join(themeTemp, 'theme'));
+    if (existsSync(api.winPath(join(themeTemp, 'theme')))) {
+      rimraf.sync(api.winPath(join(themeTemp, 'theme')));
     }
 
     mkdirSync(themeTemp);
-    mkdirSync(join(themeTemp, 'theme'));
+
+    mkdirSync(api.winPath(join(themeTemp, 'theme')));
 
     buildCss(
       cwd,
