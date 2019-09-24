@@ -31,7 +31,7 @@ export default function(
   });
 
   // 编译完成之后
-  api.onBuildSuccessAsync(() => {
+  api.onBuildSuccess(() => {
     api.log.pending('💄  build theme');
     buildCss(
       cwd,
