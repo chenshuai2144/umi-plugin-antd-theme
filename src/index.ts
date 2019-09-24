@@ -23,7 +23,7 @@ export default function(
 ) {
   const { cwd, outputPath, absTmpDirPath } = api.paths;
 
-  const themeTemp = join(absTmpDirPath, 'plugin-theme');
+  const themeTemp = api.winPath(join(absTmpDirPath, 'plugin-theme'));
 
   // 增加中间件
   api.addMiddlewareAhead(() => {
@@ -38,7 +38,7 @@ export default function(
       options.theme.map(
         theme => ({
           ...theme,
-          fileName: join(outputPath, 'theme', theme.fileName),
+          fileName: api.winPath(join(outputPath, 'theme', theme.fileName)),
         }),
         {
           min: true,
@@ -68,7 +68,7 @@ export default function(
       cwd,
       options.theme.map(theme => ({
         ...theme,
-        fileName: join(themeTemp, 'theme', theme.fileName),
+        fileName: api.winPath(join(themeTemp, 'theme', theme.fileName)),
       })),
       {
         min: false,
