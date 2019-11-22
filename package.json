@@ -30,6 +30,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@ant-design/pro-layout": "^4.7.3",
     "antd": "^3.25.2",
     "antd-pro-merge-less": "^2.0.11",
     "rimraf": "^3.0.0",
