@@ -45,9 +45,13 @@ export default function(
           ...options,
         },
       ),
-    ).then(() => {
-      api.log.success('🎊  build theme success');
-    });
+    )
+      .then(() => {
+        api.log.success('🎊  build theme success');
+      })
+      .catch(e => {
+        console.log(e);
+      });
   });
 
   // dev 之后
@@ -72,11 +76,14 @@ export default function(
         fileName: api.winPath(join(themeTemp, 'theme', theme.fileName)),
       })),
       {
-        min: false,
         ...options,
       },
-    ).then(() => {
-      api.log.success('🎊  build theme success');
-    });
+    )
+      .then(() => {
+        api.log.success('🎊  build theme success');
+      })
+      .catch(e => {
+        console.log(e);
+      });
   });
 }
