@@ -30,6 +30,10 @@ export default function(
     return serveStatic(themeTemp);
   });
 
+  api.addHTMLHeadScript({
+    content: `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
+  });
+
   // 编译完成之后
   api.onBuildSuccess(() => {
     api.log.pending('💄  build theme');
@@ -48,9 +52,6 @@ export default function(
     )
       .then(() => {
         api.log.success('🎊  build theme success');
-        api.addHTMLHeadScript({
-          content: `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
-        });
       })
       .catch(e => {
         console.log(e);
@@ -83,9 +84,6 @@ export default function(
       },
     )
       .then(() => {
-        api.addHTMLHeadScript({
-          content: `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
-        });
         api.log.success('🎊  build theme success');
       })
       .catch(e => {
