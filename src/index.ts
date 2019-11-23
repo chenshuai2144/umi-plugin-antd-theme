@@ -37,6 +37,13 @@ export default function(
   // 编译完成之后
   api.onBuildSuccess(() => {
     api.log.pending('💄  build theme');
+
+    if (existsSync(api.winPath(join(outputPath, 'theme')))) {
+      rimraf.sync(api.winPath(join(outputPath, 'theme')));
+    }
+
+    mkdirSync(api.winPath(join(outputPath, 'theme')), { mode: 33279 });
+
     buildCss(
       cwd,
       options.theme.map(
