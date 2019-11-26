@@ -21,10 +21,10 @@ export default function(
     min: boolean;
   },
 ) {
-  const { cwd, outputPath, absTmpDirPath } = api.paths;
+  const { cwd, outputPath, absNodeModulesPath } = api.paths;
 
-  const themeTemp = api.winPath(join(absTmpDirPath, 'plugin-theme'));
-
+  const themeTemp = api.winPath(join(absNodeModulesPath, '.plugin-theme'));
+  console.log(themeTemp);
   // 增加中间件
   api.addMiddlewareAhead(() => {
     return serveStatic(themeTemp);
@@ -38,11 +38,14 @@ export default function(
   api.onBuildSuccess(() => {
     api.log.pending('💄  build theme');
 
-    if (existsSync(api.winPath(join(outputPath, 'theme')))) {
-      rimraf.sync(api.winPath(join(outputPath, 'theme')));
+    try {
+      if (existsSync(api.winPath(join(outputPath, 'theme')))) {
+        rimraf.sync(api.winPath(join(outputPath, 'theme')));
+      }
+      mkdirSync(api.winPath(join(outputPath, 'theme')));
+    } catch (error) {
+      // console.log(error);
     }
-
-    mkdirSync(api.winPath(join(outputPath, 'theme')), { mode: 33279 });
 
     buildCss(
       cwd,
@@ -69,16 +72,20 @@ export default function(
   api.onDevCompileDone(() => {
     api.log.pending('💄  build theme');
     // 建立相关的临时文件夹
-    if (existsSync(themeTemp)) {
-      rimraf.sync(themeTemp);
-    }
-    if (existsSync(api.winPath(join(themeTemp, 'theme')))) {
-      rimraf.sync(api.winPath(join(themeTemp, 'theme')));
-    }
+    try {
+      if (existsSync(themeTemp)) {
+        rimraf.sync(themeTemp);
+      }
+      if (existsSync(api.winPath(join(themeTemp, 'theme')))) {
+        rimraf.sync(api.winPath(join(themeTemp, 'theme')));
+      }
 
-    mkdirSync(themeTemp, { mode: 33279 });
+      mkdirSync(themeTemp);
 
-    mkdirSync(api.winPath(join(themeTemp, 'theme')), { mode: 33279 });
+      mkdirSync(api.winPath(join(themeTemp, 'theme')));
+    } catch (error) {
+      // console.log(error);
+    }
 
     buildCss(
       cwd,
