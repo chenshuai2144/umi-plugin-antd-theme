@@ -24,7 +24,6 @@ export default function(
   const { cwd, outputPath, absNodeModulesPath } = api.paths;
 
   const themeTemp = api.winPath(join(absNodeModulesPath, '.plugin-theme'));
-  console.log(themeTemp);
   // 增加中间件
   api.addMiddlewareAhead(() => {
     return serveStatic(themeTemp);
@@ -70,6 +69,7 @@ export default function(
 
   // dev 之后
   api.onDevCompileDone(() => {
+    api.log.info('cache in :' + themeTemp);
     api.log.pending('💄  build theme');
     // 建立相关的临时文件夹
     try {
