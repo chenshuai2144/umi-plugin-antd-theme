@@ -17,6 +17,7 @@
     "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
   },
   "devDependencies": {
+    "@types/node": "^12.12.14",
     "father-build": "^1.8.0",
     "np": "^5.0.3",
     "umi": "^2.9.0",
@@ -31,7 +32,6 @@
   "license": "MIT",
   "dependencies": {
     "@ant-design/pro-layout": "^4.7.3",
-    "antd": "^3.25.2",
     "antd-pro-merge-less": "^2.0.11",
     "rimraf": "^3.0.0",
     "serve-static": "^1.14.1"

@@ -1,4 +1,5 @@
-// ref:
+/** @format */
+
 // - https://umijs.org/plugin/develop.html
 import { IApi } from 'umi-types';
 import { join } from 'path';
@@ -19,7 +20,7 @@ export default function(
   options: {
     theme: themeConfig[];
     min: boolean;
-  },
+  }
 ) {
   const { cwd, outputPath, absNodeModulesPath } = api.paths;
 
@@ -56,8 +57,8 @@ export default function(
         {
           min: true,
           ...options,
-        },
-      ),
+        }
+      )
     )
       .then(() => {
         api.log.success('🎊  build theme success');
@@ -95,7 +96,7 @@ export default function(
       })),
       {
         ...options,
-      },
+      }
     )
       .then(() => {
         api.log.success('🎊  build theme success');
