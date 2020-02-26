@@ -1,13 +1,14 @@
 /** @format */
 
 // - https://umijs.org/plugin/develop.html
-import { IApi } from 'umi-types';
+import { IApi } from 'umi';
 import { join } from 'path';
 import serveStatic from 'serve-static';
 import rimraf from 'rimraf';
 import { existsSync, mkdirSync } from 'fs';
 
 const buildCss = require('antd-pro-merge-less');
+const winPath = require('slash2');
 
 interface themeConfig {
   theme: 'dark' | 'light';
@@ -22,27 +23,30 @@ export default function(
     min: boolean;
   },
 ) {
-  const { cwd, outputPath, absNodeModulesPath } = api.paths;
-
-  const themeTemp = api.winPath(join(absNodeModulesPath, '.plugin-theme'));
+  const { cwd, absOutputPath, absNodeModulesPath } = api.paths;
+  const outputPath = winPath(join(cwd, absOutputPath));
+  const themeTemp = winPath(join(absNodeModulesPath, '.plugin-theme'));
   // 增加中间件
-  api.addMiddlewareAhead(() => {
+  api.addMiddewares(() => {
     return serveStatic(themeTemp);
   });
 
-  api.addHTMLHeadScript({
-    content: `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
-  });
+  api.addHTMLHeadScripts(() => [
+    `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
+  ]);
 
   // 编译完成之后
-  api.onBuildSuccess(() => {
-    api.log.pending('💄  build theme');
+  api.onBuildComplete(error => {
+    if (error) {
+      return;
+    }
+    api.logger.info('💄  build theme');
 
     try {
-      if (existsSync(api.winPath(join(outputPath, 'theme')))) {
-        rimraf.sync(api.winPath(join(outputPath, 'theme')));
+      if (existsSync(winPath(join(outputPath, 'theme')))) {
+        rimraf.sync(winPath(join(outputPath, 'theme')));
       }
-      mkdirSync(api.winPath(join(outputPath, 'theme')));
+      mkdirSync(winPath(join(outputPath, 'theme')));
     } catch (error) {
       // console.log(error);
     }
@@ -52,7 +56,7 @@ export default function(
       options.theme.map(
         theme => ({
           ...theme,
-          fileName: api.winPath(join(outputPath, 'theme', theme.fileName)),
+          fileName: winPath(join(outputPath, 'theme', theme.fileName)),
         }),
         {
           min: true,
@@ -61,7 +65,7 @@ export default function(
       ),
     )
       .then(() => {
-        api.log.success('🎊  build theme success');
+        api.logger.log('🎊  build theme success');
       })
       .catch(e => {
         console.log(e);
@@ -70,20 +74,20 @@ export default function(
 
   // dev 之后
   api.onDevCompileDone(() => {
-    api.log.info('cache in :' + themeTemp);
-    api.log.pending('💄  build theme');
+    api.logger.info('cache in :' + themeTemp);
+    api.logger.info('💄  build theme');
     // 建立相关的临时文件夹
     try {
       if (existsSync(themeTemp)) {
         rimraf.sync(themeTemp);
       }
-      if (existsSync(api.winPath(join(themeTemp, 'theme')))) {
-        rimraf.sync(api.winPath(join(themeTemp, 'theme')));
+      if (existsSync(winPath(join(themeTemp, 'theme')))) {
+        rimraf.sync(winPath(join(themeTemp, 'theme')));
       }
 
       mkdirSync(themeTemp);
 
-      mkdirSync(api.winPath(join(themeTemp, 'theme')));
+      mkdirSync(winPath(join(themeTemp, 'theme')));
     } catch (error) {
       // console.log(error);
     }
@@ -92,14 +96,14 @@ export default function(
       cwd,
       options.theme.map(theme => ({
         ...theme,
-        fileName: api.winPath(join(themeTemp, 'theme', theme.fileName)),
+        fileName: winPath(join(themeTemp, 'theme', theme.fileName)),
       })),
       {
         ...options,
       },
     )
       .then(() => {
-        api.log.success('🎊  build theme success');
+        api.logger.log('🎊  build theme success');
       })
       .catch(e => {
         console.log(e);
