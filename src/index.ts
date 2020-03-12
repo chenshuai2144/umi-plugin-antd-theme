@@ -31,7 +31,7 @@ export default function(api: IApi) {
     options = require(themeConfigPath);
   }
   const { cwd, absOutputPath, absNodeModulesPath } = api.paths;
-  const outputPath = winPath(join(cwd, absOutputPath));
+  const outputPath = absOutputPath;
   const themeTemp = winPath(join(absNodeModulesPath, '.plugin-theme'));
 
   // 增加中间件
@@ -41,12 +41,14 @@ export default function(api: IApi) {
 
   // 增加一个对象，用于 layout 的配合
   api.addHTMLHeadScripts(() => [
-    `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
+    {
+      content: `window.umi_plugin_ant_themeVar = ${JSON.stringify(options.theme)}`,
+    },
   ]);
 
   // 编译完成之后
-  api.onBuildComplete(error => {
-    if (error) {
+  api.onBuildComplete(({ err }) => {
+    if (err) {
       return;
     }
     api.logger.info('💄  build theme');
