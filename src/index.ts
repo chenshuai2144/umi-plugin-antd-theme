@@ -18,7 +18,39 @@ interface themeConfig {
   modifyVars?: { [key: string]: string };
 }
 
-export default function(api: IApi) {
+export default function (api: IApi) {
+  api.modifyDefaultConfig((config) => {
+    config.cssLoader = {
+      modules: {
+        getLocalIdent: (
+          context: {
+            resourcePath: string;
+          },
+          _: string,
+          localName: string,
+        ) => {
+          if (
+            context.resourcePath.includes('node_modules') ||
+            context.resourcePath.includes('ant.design.pro.less') ||
+            context.resourcePath.includes('global.less')
+          ) {
+            return localName;
+          }
+          const match = context.resourcePath.match(/src(.*)/);
+          if (match && match[1]) {
+            const antdProPath = match[1].replace('.less', '');
+            const arr = winPath(antdProPath)
+              .split('/')
+              .map((a: string) => a.replace(/([A-Z])/g, '-$1'))
+              .map((a: string) => a.toLowerCase());
+            return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
+          }
+          return localName;
+        },
+      },
+    };
+    return config;
+  });
   // 给一个默认的配置
   let options: {
     theme: themeConfig[];
@@ -65,20 +97,20 @@ export default function(api: IApi) {
     buildCss(
       cwd,
       options.theme.map(
-        theme => ({
+        (theme) => ({
           ...theme,
           fileName: winPath(join(outputPath, 'theme', theme.fileName)),
         }),
         {
           min: true,
           ...options,
-        }
-      )
+        },
+      ),
     )
       .then(() => {
         api.logger.log('🎊  build theme success');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   });
@@ -105,18 +137,18 @@ export default function(api: IApi) {
 
     buildCss(
       cwd,
-      options.theme.map(theme => ({
+      options.theme.map((theme) => ({
         ...theme,
         fileName: winPath(join(themeTemp, 'theme', theme.fileName)),
       })),
       {
         ...options,
-      }
+      },
     )
       .then(() => {
         api.logger.log('🎊  build theme success');
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   });

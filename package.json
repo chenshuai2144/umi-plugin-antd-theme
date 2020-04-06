@@ -20,7 +20,7 @@
     "@types/node": "^12.12.14",
     "father-build": "^1.8.0",
     "np": "^5.0.3",
-    "umi": "^3.0.0-beta.29"
+    "umi": "^3.0.18"
   },
   "files": [
     "dist",
