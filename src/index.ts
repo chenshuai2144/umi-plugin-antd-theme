@@ -61,6 +61,11 @@ export default function (api: IApi) {
   const themeConfigPath = winPath(join(api.paths.cwd, 'config/theme.config.json'));
   if (existsSync(themeConfigPath)) {
     options = require(themeConfigPath);
+  }else{
+    const themeConfigPath = winPath(join(api.paths.cwd, 'config/theme.config.js'));
+    if (existsSync(themeConfigPath)) {
+      options = require(themeConfigPath);
+    }
   }
   const { cwd, absOutputPath, absNodeModulesPath } = api.paths;
   const outputPath = absOutputPath;
