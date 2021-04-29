@@ -8,7 +8,7 @@
   },
   "repository": "https://github.com/chenshuai2144/umi-plugin-ant-theme.git",
   "peerDependencies": {
-    "umi": "2.x || ^2.9.0-0"
+    "umi": "2.x || ^2.9.0-0 || 3.x"
   },
   "main": "lib/index.js",
   "scripts": {
