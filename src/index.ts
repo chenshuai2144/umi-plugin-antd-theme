@@ -64,7 +64,7 @@ export default function (api: IApi) {
   }
   const { cwd, absOutputPath, absNodeModulesPath } = api.paths;
   const outputPath = absOutputPath;
-  const themeTemp = winPath(join(absNodeModulesPath, '.plugin-theme'));
+  const themeTemp = winPath(join(__dirname, '../../.plugin-theme'));
 
   // 增加中间件
   api.addMiddewares(() => {
