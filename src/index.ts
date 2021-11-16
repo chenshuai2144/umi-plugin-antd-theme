@@ -96,16 +96,14 @@ export default function (api: IApi) {
 
     buildCss(
       cwd,
-      options.theme.map(
-        (theme) => ({
-          ...theme,
-          fileName: winPath(join(outputPath, 'theme', theme.fileName)),
-        }),
-        {
-          min: true,
-          ...options,
-        },
-      ),
+      options.theme.map((theme) => ({
+        ...theme,
+        fileName: winPath(join(outputPath, 'theme', theme.fileName)),
+      })),
+      {
+        min: true,
+        ...options,
+      },
     )
       .then(() => {
         api.logger.log('🎊  build theme success');
